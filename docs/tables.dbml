@@ -1,0 +1,52 @@
+Table user {
+  id integer [pk, increment]
+  username varchar(32) [not null]
+  password varchar(128) [not null]
+  email varchar(128) [unique]
+  created_at datetime [not null]
+  modified_at datetime
+  last_login datetime
+}
+
+Table role {
+  id integer [pk, increment]
+  name varchar(32) [not null]
+  description varchar(255) [not null]
+}
+
+Table permssion {
+  id integer [pk, increment]
+  name varchar(32) [not null]
+  description varchar(255) [not null]
+}
+
+Table user_role {
+  id integer [pk, increment]
+  uid integer [ref: > user.id]
+  rid integer [ref: > role.id]
+}
+
+Table role_perm {
+  id integer [pk, increment]
+  rid integer [ref: > role.id]
+  pid integer [ref: > permssion.id]
+}
+
+Table platform {
+  id integer [pk, increment]
+  name varchar(32) [not null]
+  comment varchar(255)
+}
+
+Table shop {
+  id integer [pk, increment]
+  name varchar(32) [not null]
+  platform integer [ref: > platform.id]
+  comment varchar(255)
+}
+
+Table user_shop {
+  id integer [pk, increment]
+  uid integer [ref: > user.id]
+  sid integer [ref: > shop.id]
+}
